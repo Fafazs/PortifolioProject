@@ -2,6 +2,7 @@ import './App.css'
 import { useState, useEffect } from 'react';
 import colorList from './data/colors.json'
 import ColorPicker from './components/ColorPicker';
+import RandomColorButton from './components/RandomColorButton';
 
 function App() {
   const [bgColor, setBGColor] = useState('#ffffff');  
@@ -39,12 +40,17 @@ function HandlePickedColor(color){
 setBGColor(color);
 }
 
+function handleRandomColor(newRandomColor) {
+  setBGColor(newRandomColor);
+}
+
   return (
     <div id='section-ONE' style={{backgroundColor: bgColor,}}>
       <h1>Hello, I am Fabrício!</h1>
 
       <div>
         <input
+        className='colorInput'
           type="text"
           placeholder="Type a color name"
           value={typedColor}
@@ -52,7 +58,8 @@ setBGColor(color);
           style={{ padding: '0.5rem' }}
         />
 
-        <ColorPicker onColorPick={HandlePickedColor} />
+        <ColorPicker id="ColorPicker" onColorPick={HandlePickedColor} />
+        <RandomColorButton onRandomColor={handleRandomColor} />
 
         {typedColor && filteredColor.length> 0 && (
         <ul className="color-dropdown">

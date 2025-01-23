@@ -1,7 +1,3 @@
-
-
-
-
 #section-ONE{
   width: 100vw;
   height: 100vh;
@@ -10,40 +6,32 @@
   align-items: center;
 }
 
-
-
 .color-dropdown {
   margin: 0;
   padding: 0;
   list-style: none;
-  
-  
   width: 200px;
-  
-  
   background-color: #ffffff;
   border: 1px solid #ccc;
   border-radius: 4px;
-  
- 
   max-height: 150px;
   overflow-y: auto;
-  
- 
   font-family: Arial, sans-serif;
   font-size: 14px;
 }
-
 
 .color-dropdown li {
   padding: 8px;
   cursor: pointer;
 }
 
-
 .color-dropdown li:hover {
   background-color: #f2f2f2;
 }
 
+.colorInput{
+  border-radius: 10px;
+  padding: 0.5rem 2rem ;
+}
 
 
