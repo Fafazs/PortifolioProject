@@ -1,0 +1,74 @@
+/* Estilo padrão com efeito glassy */
+.color-card {
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    margin: 1rem;
+  }
+  
+  .color-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 16px 32px 0 rgba(31, 38, 135, 0.5);
+  }
+  
+  .color-card .color-info {
+    text-align: center;
+    color: #ffffff;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .color-card:hover .color-info {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+  
+  .color-info h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .color-info p {
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Variante 2: estilo alternativo */
+  .variant2 {
+    width: 220px;
+    height: 150px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .variant2:hover {
+    transform: scale(1.07);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .variant2 .color-info h2 {
+    font-size: 1.75rem;
+    color: #222222;
+    margin: 0;
+    padding: 0.2rem;
+  }
+  
+  .variant2 .color-info p {
+    font-size: 1.2rem;
+    color: #444444;
+  }
+  

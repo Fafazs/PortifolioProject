@@ -3,22 +3,35 @@ import { useState, useEffect } from 'react';
 import colorList from './data/colors.json'
 import ColorPicker from './components/ColorPicker';
 import RandomColorButton from './components/RandomColorButton';
+import ColorInfoCard from './components/ColorInfoCard';
+
 
 function App() {
   const [h1Color, setH1Color] = useState('#000000');
   const [bgColor, setBGColor] = useState('#ffffff');
+  const [bgColorName, setBGColorName] = useState('');
   const [typedColor, setTypedColor] = useState('');
   const [filteredColor, setFilteredColor] = useState([]);
   const [error, setError] = useState(null);
 
-
   useEffect(() => {
-    console.log('backgroundcolor updated');
     handleH1Color(bgColor);
+    findBGColorName(bgColor);
   }, [bgColor]);
 
+  function findBGColorName(bgColor){
+    const foundColor = colorList.find(colorOBJ => 
+      colorOBJ.hex.toLowerCase() === bgColor.toLowerCase()
+    );
+    if (foundColor) {
+      setBGColorName(foundColor.name);
+    } else {
+      setBGColorName('');
+    }
+  }
+
   function handleH1Color(bgColorHex) {
-    const hex = bgColorHex.replace('#','');
+    const hex = bgColorHex.replace('#', '');
 
     const r = parseInt(hex.substring(0, 2), 16);
     const g = parseInt(hex.substring(2, 4), 16);
@@ -26,13 +39,13 @@ function App() {
 
     const brilhoMedio = (r + g + b) / 3;
 
-    if(brilhoMedio < 128){
+    if (brilhoMedio < 128) {
       setH1Color("#ffffff");
       return
     }
-    else{
-     setH1Color("#000000");
-     return
+    else {
+      setH1Color("#000000");
+      return
     }
   }
 
@@ -40,19 +53,36 @@ function App() {
     const value = e.target.value;
     setTypedColor(value);
 
-    const colorFilter = colorList.filter((colorOBJ) => {
-      return colorOBJ.name.toLowerCase().includes(value.toLowerCase());
-    });
+    const colorFilter = colorList
+      .filter((colorOBJ) =>
+        colorOBJ.name.toLowerCase().includes(value.toLowerCase())
+      )
+      .sort((a, b) => {
+        const lowerA = a.name.toLowerCase();
+        const lowerB = b.name.toLowerCase();
+        const lowerValue = value.toLowerCase();
 
-    console.log(colorFilter)
-    setFilteredColor(colorFilter);
+        const indexA = lowerA.indexOf(lowerValue);
+        const indexB = lowerB.indexOf(lowerValue);
 
+        if (indexA === indexB) {
+          return lowerA.localeCompare(lowerB);
+        }
+        return indexA - indexB;
+      });
+
+    const uniqueColors = colorFilter.filter((color, index, self) =>
+      index === self.findIndex((c) => c.name.toLowerCase() === color.name.toLowerCase())
+    );
+
+    setFilteredColor(uniqueColors);
 
     const colorFinder = colorList.find((colorOBJ) =>
       colorOBJ.name.toLowerCase() === value.toLowerCase());
 
     if (colorFinder) {
-      setBGColor(colorFinder.name);
+      setBGColor(colorFinder.hex);
+      setBGColorName(colorFinder.name);
       setError(null);
     }
     else {
@@ -91,7 +121,7 @@ function App() {
               <li
                 key={color.hex}
                 onClick={() => {
-                  setBGColor(color.name);
+                  setBGColor(color.hex);
                   setTypedColor(color.name);
                   setFilteredColor([]);
                 }}
@@ -99,6 +129,8 @@ function App() {
             ))}
           </ul>
         )}
+
+        <ColorInfoCard colorName={bgColorName} colorHex={bgColor} />
       </div>
     </div>
   );
