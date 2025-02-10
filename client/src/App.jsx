@@ -5,7 +5,6 @@ import ColorPicker from './components/ColorPicker';
 import RandomColorButton from './components/RandomColorButton';
 import ColorInfoCard from './components/ColorInfoCard';
 
-
 function App() {
   const [h1Color, setH1Color] = useState('#000000');
   const [bgColor, setBGColor] = useState('#ffffff');
@@ -19,8 +18,8 @@ function App() {
     findBGColorName(bgColor);
   }, [bgColor]);
 
-  function findBGColorName(bgColor){
-    const foundColor = colorList.find(colorOBJ => 
+  function findBGColorName(bgColor) {
+    const foundColor = colorList.find(colorOBJ =>
       colorOBJ.hex.toLowerCase() === bgColor.toLowerCase()
     );
     if (foundColor) {
@@ -99,10 +98,13 @@ function App() {
   }
 
   return (
-    <div id='section-ONE' style={{ backgroundColor: bgColor }}>
-      <h1 style={{ color: h1Color }}>Hello, I am Fabrício!</h1>
+    <div id='section-ONE' style={{
+      backgroundColor: bgColor,
+      transition: '1.5s',
+    }}>
+      <h1 style={{ color: h1Color, transition: '1.5s', }}>Hello, I am Fabrício!</h1>
 
-      <div>
+      <div className='main-div'>
         <input
           className='colorInput'
           type="text"
@@ -111,10 +113,6 @@ function App() {
           onChange={(e) => { HandleColor(e) }}
           style={{ padding: '0.5rem' }}
         />
-
-        <ColorPicker id="ColorPicker" onColorPick={HandlePickedColor} />
-        <RandomColorButton onRandomColor={handleRandomColor} />
-
         {typedColor && filteredColor.length > 0 && (
           <ul className="color-dropdown">
             {filteredColor.map((color) => (
@@ -130,7 +128,10 @@ function App() {
           </ul>
         )}
 
+        <ColorPicker id="ColorPicker" onColorPick={HandlePickedColor} />
+        <RandomColorButton onRandomColor={handleRandomColor} />
         <ColorInfoCard colorName={bgColorName} colorHex={bgColor} />
+
       </div>
     </div>
   );
